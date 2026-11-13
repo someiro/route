@@ -42,75 +42,6 @@ hr {
   margin: 24px 0;
 }
 
-.tableWrapper {
-  width: 100%;
-  overflow-x: auto;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 15px;
-}
-
-thead {
-  background: rgba(255, 255, 255, 0.04);
-}
-
-th {
-  text-align: left;
-  padding: 14px 16px;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-td {
-  padding: 14px 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-tr:hover {
-  background: rgba(255, 255, 255, 0.03);
-}
-
-@media (max-width: 700px) {
-  thead {
-    display: none;
-  }
-
-  table,
-  tbody,
-  tr,
-  td {
-    display: block;
-    width: 100%;
-  }
-
-  tr {
-    padding: 14px;
-    border-radius: 14px;
-    margin-bottom: 14px;
-    background: rgba(255, 255, 255, 0.03);
-  }
-
-  td {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    gap: 20px;
-
-    padding: 10px 0;
-    border: none;
-  }
-
-  td::before {
-    content: attr(data-label);
-    font-weight: 600;
-    opacity: 0.7;
-  }
-}
-
 ul {
   list-style-position: inside;
 }
@@ -122,30 +53,6 @@ ul {
 
 ul li:not(:last-child) {
   margin-bottom: 10px;
-}
-
-pre {
-  padding: 16px;
-}
-
-pre.shiki,
-pre.shiki code,
-pre.shiki span {
-  font-family:
-    ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono",
-    "Noto Sans Mono", monospace;
-  font-size: 0.95em;
-}
-
-.code {
-  font-family:
-    ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono",
-    "Noto Sans Mono", monospace;
-  font-size: 0.9em;
-  color: #000000;
-  background-color: #ececec;
-  padding: 0.2em 0.4em;
-  border-radius: 4px;
 }
 
 /* Container  */
@@ -209,7 +116,6 @@ pre.shiki span {
   align-items: center;
   gap: 12px;
 }
-
 
 /* customize */
 .left h1 {
