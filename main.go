@@ -60,10 +60,11 @@ func main() {
 /_/ |_|\____/\__,_/\__/\___/ 
 
 
+     Route Init | $ mkdir md gen
 
-|Create Markdown| $ route new <FileName>
+Create Markdown | $ route new <FileName>
 
-|Generate HTML| $ route gen <FileName>
+  Generate HTML | $ route gen <FileName>
 
 
 
