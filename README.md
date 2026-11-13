@@ -1,4 +1,5 @@
-# Route
+<img  width="250" alt="route" src="https://github.com/user-attachments/assets/a415c6b7-ed59-4ee0-a220-3971d51ce280" />
+<br><br>
 
 A small static site generator written in Go. Route generates HTML from Markdown.
 
@@ -16,9 +17,9 @@ Put the Go install directory first in your `PATH` so your shell finds Route's `r
 ## Usage
 
 ```sh
-route new "Hello, Route!"
+$ route new "Hello, Route!"
 # Edit md/Hello, Route!.md
-route gen "Hello, Route!"
+$ route gen "Hello, Route!"
 ```
 
 Generated HTML is written to `gen/`. Customize the template in `template/article.html` and the styles in `styles/main.css`.
