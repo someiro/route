@@ -62,9 +62,9 @@ func main() {
 
      Route Init | $ mkdir md gen
 
-Create Markdown | $ route new <FileName>
+Create Markdown | $ groute new <FileName>
 
-  Generate HTML | $ route gen <FileName>
+  Generate HTML | $ groute gen <FileName>
 
 
 

@@ -9,18 +9,17 @@ With Go installed, run this from the repository root:
 
 ```sh
 $ go install .
-$ export PATH="$(go env GOPATH)/bin:$PATH"
 ```
-
-Put the Go install directory first in your `PATH` so your shell finds Route's `route` command. On macOS, this avoids a name conflict with the system `/sbin/route` command. Add the `export` line to your shell configuration (for example, `~/.zshrc`) to keep it across sessions.
 
 ## Usage
 
+Run these commands from the root of the cloned repository. To use a different working directory, first copy the `template/` and `styles/` directories from the repository into it, then run the commands below from that directory.
+
 ```sh
 $ mkdir md gen
-$ route new "Hello, Route!"
+$ groute new "Hello, Route!"
 # Edit md/Hello, Route!.md
-$ route gen "Hello, Route!"
+$ groute gen "Hello, Route!"
 ```
 
 Generated HTML is written to `gen/`. Customize the template in `template/article.html` and the styles in `styles/main.css`.
