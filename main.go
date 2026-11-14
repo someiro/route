@@ -6,7 +6,6 @@ import (
 	"github.com/yuin/goldmark"
 	"html/template"
 	"os"
-	"os/exec"
 	"time"
 )
 
@@ -54,6 +53,32 @@ func genHTML(title string, mdBuf bytes.Buffer) bytes.Buffer {
 	return outBuf
 }
 
+func gen(fileName string) {
+	source, err := os.ReadFile("md/" + fileName + ".md")
+	if err != nil {
+		fmt.Println("> Generate Error 💥\nLOG:", err, "\n")
+		os.Exit(1)
+	}
+
+	var buf bytes.Buffer
+	if err := goldmark.Convert(source, &buf); err != nil {
+		fmt.Println("> Convert Error 💥\nLOG:", err, "\n")
+		os.Exit(1)
+	}
+
+	outBuf := genHTML(fileName, buf)
+
+	writeFile := "gen/articles/" + fileName + ".html"
+	if fileName == "index" {
+		writeFile = "gen/index.html"
+	}
+
+	if err = os.WriteFile(writeFile, outBuf.Bytes(), 0644); err != nil {
+		fmt.Println("> Write Error 💥\nLOG:", err, "\n")
+		os.Exit(1)
+	}
+}
+
 func main() {
 	args := os.Args
 	argsCount := len(args)
@@ -85,9 +110,13 @@ Copyright (c) 2026 Route / someiro All right reserved.
 
 	switch args[1] {
 	case "init":
-		_, err := exec.Command("mkdir", "md", "gen", "gen/articles").Output()
-		if err != nil {
-			fmt.Println("> Initialize Error 💥\nLOG:", err, "\n")
+		if err := os.MkdirAll("gen/articles", 0755); err != nil {
+			fmt.Println("> Initialize Error 💥", err)
+			os.Exit(1)
+		}
+
+		if err := os.MkdirAll("md", 0755); err != nil {
+			fmt.Println("> Initialize Error 💥", err)
 			os.Exit(1)
 		}
 
@@ -96,6 +125,10 @@ Copyright (c) 2026 Route / someiro All right reserved.
 	case "new":
 		if argsCount == 3 {
 			fileName := args[2]
+			if fileName == "index" {
+				fmt.Println("> Create Error 💥\nLOG: 'index' is a reserved name\n")
+				os.Exit(1)
+			}
 			f, err := os.OpenFile("md/"+fileName+".md", os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0644)
 			if err != nil {
 				fmt.Println("> Create Error 💥LOG:", err, "\n")
@@ -109,12 +142,14 @@ Copyright (c) 2026 Route / someiro All right reserved.
 				os.Exit(1)
 			}
 
-			defer f.Close()
-
 			now := time.Now()
 			indexData := "- [" + fileName + " - " + now.Format("2006 · 01 · 02") + "](articles/" + fileName + ".html)\n"
 			if _, err := f.WriteString(indexData); err != nil {
 				fmt.Println("Create Error 💥\nLOG:", err, "\n")
+				os.Exit(1)
+			}
+			if err := f.Close(); err != nil {
+				fmt.Println("Close Error 💥\nLOG:", err, "\n")
 				os.Exit(1)
 			}
 
@@ -127,38 +162,11 @@ Copyright (c) 2026 Route / someiro All right reserved.
 	case "gen":
 		if argsCount == 3 {
 			fileName := args[2]
-			source, err := os.ReadFile("md/" + fileName + ".md")
-			if err != nil {
-				fmt.Println("> Generate Error 💥\nLOG:", err, "\n")
-				os.Exit(1)
-			}
-
-			var buf bytes.Buffer
-			if err := goldmark.Convert(source, &buf); err != nil {
-				fmt.Println("> Convert Error 💥\nLOG:", err, "\n")
-				os.Exit(1)
-			}
-
-			outBuf := genHTML(fileName, buf)
-
-			writeFile := "gen/articles/" + fileName + ".html"
-			if fileName == "index" {
-				writeFile = "gen/index.html"
-			}
-
-			if err = os.WriteFile(writeFile, outBuf.Bytes(), 0644); err != nil {
-				fmt.Println("> Write Error 💥\nLOG:", err, "\n")
-				os.Exit(1)
-			}
-
+			gen(fileName)
 			if fileName == "index" {
 				fmt.Println("> Generate HTML ✨\nROUTE: gen/index.html\n")
 			} else {
-				_, err := exec.Command("groute", "gen", "index").Output()
-				if err != nil {
-					fmt.Println("> Generate Error 💥\nLOG:", err, "\n")
-					os.Exit(1)
-				}
+				gen("index")
 				fmt.Printf("> Generate HTML ✨\nROUTE: gen/articles/%s.html\n\n", fileName)
 			}
 			os.Exit(0)
