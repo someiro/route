@@ -17,6 +17,7 @@ Put the Go install directory first in your `PATH` so your shell finds Route's `r
 ## Usage
 
 ```sh
+$ mkdir md gen
 $ route new "Hello, Route!"
 # Edit md/Hello, Route!.md
 $ route gen "Hello, Route!"
