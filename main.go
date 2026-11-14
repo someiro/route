@@ -150,7 +150,7 @@ Copyright (c) 2026 Route / someiro All right reserved.
 				fmt.Println("> Write Error 💥\nLOG:", err, "\n")
 				os.Exit(1)
 			}
-			
+
 			if fileName == "index" {
 				fmt.Println("> Generate HTML ✨\nROUTE: gen/index.html\n")
 			} else {
