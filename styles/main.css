@@ -153,3 +153,6 @@ ul li:not(:last-child) {
 .indexHead h1 {
   margin-bottom: 80px;
 }
+img {
+  width: 100%;
+}
